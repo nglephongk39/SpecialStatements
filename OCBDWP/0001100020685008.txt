@@ -1,0 +1,12 @@
+﻿
+-- OCBDWP
+select ft_no trans_no
+, ben_acct_no tai_khoan_doi_ung
+, ben_cust_name ten_doi_ung
+, ben_bank_name ngan_hang_doi_ung
+from ocbdwp.v_cust_acct_stmt_ben
+where account = '0001100020685008'
+and ft_no in (
+'FT23069MRV0W','FT23074X9Z7Z','FT2308805H4M','FT23059V4Y1X','FT23090SXVY0','FT23089KC985','FT22364M9D02','FT23091TH26Y','FT23031W5LNY','FT23011Q0YTH','FT223651M03B','FT23010XVK2L','FT230162XGP0','FT23069HT3Z5','FT23010515KT','FT230172DNKX','FT23081T77FK','FT230510RL7C','FT230586SHTX'
+)
+and ben_acct_no is not null

@@ -1,0 +1,44 @@
+﻿
+-- ESBDATA
+select t1.t24_trans_no trans_no, t1.field_102 as tai_khoan_doi_ung, t1.field_48 as ten_doi_ung
+, srcbnk.name as ngan_hang_doi_ung
+from esbdata.transactions t inner join ESBDATA.smartlink_transaction_trace t1 
+on t.trans_id = t1.serial_no
+left join ESBDATA.smartlink_banks_ben srcbnk on t1.field_32 = srcbnk.code
+left join esbdata.smartlink_banks_ben dstbnk on t1.field_100 = dstbnk.code
+where t.trans_no in (
+'FT22328PSR4Z','FT230861SVX3','FT23076W8MLN','FT22215P4FC1','FT222954N8WV','FT22334GGNY2','FT223342JQHL','FT223340HCZ3','FT223343QPR4','FT22334G1PS0','FT223346KS9F','FT22334DGN13','FT22288Y1058','FT23089DGTQV','FT223014VTMV','FT22307N5V69','FT223343C505','FT22365S81QH','FT22291KMM1M','FT22334ZV0J3','FT230687K5RZ','FT23010C74FG','FT22334TLN8L','FT22347GTPR2','FT22334BWJ7Q','FT23010TW29F','FT22334VBLRQ','FT22334RR641','FT223640K33Z','FT23075RW9P3','FT22334FQ0ZZ','FT22291DBV65','FT22321JBBNT','FT22334RMV87','FT22334VBGZ9','FT23086K1ZD9','FT23087JZ22P'
+)
+and t1.field_102 <> '0907893193'
+and t1.t24_trans_no is not null
+union all
+select t1.t24_trans_no trans_no, t1.field_103 tai_khoan_doi_ung, t1.field_120 ten_doi_ung, dstbnk.NAME ngan_hang_doi_ung
+from esbdata.transactions t inner join ESBDATA.smartlink_transaction_trace t1 
+on t.trans_id = t1.serial_no
+left join ESBDATA.smartlink_banks_ben srcbnk on t1.field_32 = srcbnk.code
+left join esbdata.smartlink_banks_ben dstbnk on t1.field_100 = dstbnk.code
+where t.trans_no in (
+'FT22328PSR4Z','FT230861SVX3','FT23076W8MLN','FT22215P4FC1','FT222954N8WV','FT22334GGNY2','FT223342JQHL','FT223340HCZ3','FT223343QPR4','FT22334G1PS0','FT223346KS9F','FT22334DGN13','FT22288Y1058','FT23089DGTQV','FT223014VTMV','FT22307N5V69','FT223343C505','FT22365S81QH','FT22291KMM1M','FT22334ZV0J3','FT230687K5RZ','FT23010C74FG','FT22334TLN8L','FT22347GTPR2','FT22334BWJ7Q','FT23010TW29F','FT22334VBLRQ','FT22334RR641','FT223640K33Z','FT23075RW9P3','FT22334FQ0ZZ','FT22291DBV65','FT22321JBBNT','FT22334RMV87','FT22334VBGZ9','FT23086K1ZD9','FT23087JZ22P'
+)
+and t1.field_103 <> '0907893193'
+and t1.t24_trans_no is not null
+union all
+select t2.trans_no, t1.debit_account_no as tai_khoan_doi_ung, da.t_short_title as ten_doi_ung
+, 'Ngân hàng TMCP Phương Đông (OCB)' as ngan_hang_doi_ung
+from ESBDATA.omni_transaction_hist t1 inner join ESBDATA.transactions t2 on t1.trans_id=t2.trans_id
+inner join ESBDATA.t24_account da on t1.debit_account_no = da.id
+inner join ESBDATA.t24_account ca on t1.credit_account = ca.id
+where t1.payment_type='InternalPayment' and t2.trans_no in (
+'FT22328PSR4Z','FT230861SVX3','FT23076W8MLN','FT22215P4FC1','FT222954N8WV','FT22334GGNY2','FT223342JQHL','FT223340HCZ3','FT223343QPR4','FT22334G1PS0','FT223346KS9F','FT22334DGN13','FT22288Y1058','FT23089DGTQV','FT223014VTMV','FT22307N5V69','FT223343C505','FT22365S81QH','FT22291KMM1M','FT22334ZV0J3','FT230687K5RZ','FT23010C74FG','FT22334TLN8L','FT22347GTPR2','FT22334BWJ7Q','FT23010TW29F','FT22334VBLRQ','FT22334RR641','FT223640K33Z','FT23075RW9P3','FT22334FQ0ZZ','FT22291DBV65','FT22321JBBNT','FT22334RMV87','FT22334VBGZ9','FT23086K1ZD9','FT23087JZ22P'
+)
+and t1.debit_account_no <> '0907893193'
+union all
+select t2.trans_no, t1.credit_account as tai_khoan_doi_ung
+, ca.t_short_title as ten_doi_ung, 'Ngân hàng TMCP Phương Đông (OCB)' ngan_hang_doi_ung
+from ESBDATA.omni_transaction_hist t1 inner join ESBDATA.transactions t2 on t1.trans_id=t2.trans_id
+inner join ESBDATA.t24_account da on t1.debit_account_no = da.id
+inner join ESBDATA.t24_account ca on t1.credit_account = ca.id
+where t1.payment_type='InternalPayment' and t2.trans_no in (
+'FT22328PSR4Z','FT230861SVX3','FT23076W8MLN','FT22215P4FC1','FT222954N8WV','FT22334GGNY2','FT223342JQHL','FT223340HCZ3','FT223343QPR4','FT22334G1PS0','FT223346KS9F','FT22334DGN13','FT22288Y1058','FT23089DGTQV','FT223014VTMV','FT22307N5V69','FT223343C505','FT22365S81QH','FT22291KMM1M','FT22334ZV0J3','FT230687K5RZ','FT23010C74FG','FT22334TLN8L','FT22347GTPR2','FT22334BWJ7Q','FT23010TW29F','FT22334VBLRQ','FT22334RR641','FT223640K33Z','FT23075RW9P3','FT22334FQ0ZZ','FT22291DBV65','FT22321JBBNT','FT22334RMV87','FT22334VBGZ9','FT23086K1ZD9','FT23087JZ22P'
+)
+and t1.credit_account <> '0907893193'

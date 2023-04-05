@@ -1,0 +1,12 @@
+﻿
+-- OCBDWP
+select ft_no trans_no
+, ben_acct_no tai_khoan_doi_ung
+, ben_cust_name ten_doi_ung
+, ben_bank_name ngan_hang_doi_ung
+from ocbdwp.v_cust_acct_stmt_ben
+where account = '0939561227'
+and ft_no in (
+'FT22236QHRDV','FT223061KY8Q','FT22250MWW7H','FT22221KCVVL','FT222371L0Z1','FT22273R1ZNQ','FT221905ZHGV','FT222574DQL3','FT22315184MX','FT22287D9G68','FT22213XD69B','FT22306W2F8Q','FT22208HHV16','FT22295CVBFG','FT22314YLCWF'
+)
+and ben_acct_no is not null

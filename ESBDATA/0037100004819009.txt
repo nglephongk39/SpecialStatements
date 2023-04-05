@@ -1,0 +1,44 @@
+﻿
+-- ESBDATA
+select t1.t24_trans_no trans_no, t1.field_102 as tai_khoan_doi_ung, t1.field_48 as ten_doi_ung
+, srcbnk.name as ngan_hang_doi_ung
+from esbdata.transactions t inner join ESBDATA.smartlink_transaction_trace t1 
+on t.trans_id = t1.serial_no
+left join ESBDATA.smartlink_banks_ben srcbnk on t1.field_32 = srcbnk.code
+left join esbdata.smartlink_banks_ben dstbnk on t1.field_100 = dstbnk.code
+where t.trans_no in (
+'FT22054XTFVZ','FT22020JQJVN','FT22041T0V9Y','FT22075PBD86','FT22091N22P3','FT22021R05ZW','FT220756ZRLV','FT22071ZS6S2','FT22213B17GK','FT23009YNH5R','FT2303441TWN','FT223299F3BW','FT22294MX5RD','FT223278T424','FT22347WHNPZ','FT223617KN2T','FT23010T7WN2','FT222480GL1K','FT230111TVRQ','FT22319MYTF0','FT23013J8MNT','FT22344L9CKQ','FT2232037NFT','FT23005043SK','FT230349MJJ3','FT23019YFRJ5','FT222073TQYX','FT230307HBWP','FT23037841J8','FT22365GJPS9','FT223569Y7D0','FT22363C9Q1C','FT23018RS3Q2','FT23005581SD','FT22255MS5QQ','FT2232573YSH','FT223569BWG4','FT23034LCK3W','FT22319LXKZ1','FT23037GT1SD','FT222481X40Z'
+)
+and t1.field_102 <> '0037100004819009'
+and t1.t24_trans_no is not null
+union all
+select t1.t24_trans_no trans_no, t1.field_103 tai_khoan_doi_ung, t1.field_120 ten_doi_ung, dstbnk.NAME ngan_hang_doi_ung
+from esbdata.transactions t inner join ESBDATA.smartlink_transaction_trace t1 
+on t.trans_id = t1.serial_no
+left join ESBDATA.smartlink_banks_ben srcbnk on t1.field_32 = srcbnk.code
+left join esbdata.smartlink_banks_ben dstbnk on t1.field_100 = dstbnk.code
+where t.trans_no in (
+'FT22054XTFVZ','FT22020JQJVN','FT22041T0V9Y','FT22075PBD86','FT22091N22P3','FT22021R05ZW','FT220756ZRLV','FT22071ZS6S2','FT22213B17GK','FT23009YNH5R','FT2303441TWN','FT223299F3BW','FT22294MX5RD','FT223278T424','FT22347WHNPZ','FT223617KN2T','FT23010T7WN2','FT222480GL1K','FT230111TVRQ','FT22319MYTF0','FT23013J8MNT','FT22344L9CKQ','FT2232037NFT','FT23005043SK','FT230349MJJ3','FT23019YFRJ5','FT222073TQYX','FT230307HBWP','FT23037841J8','FT22365GJPS9','FT223569Y7D0','FT22363C9Q1C','FT23018RS3Q2','FT23005581SD','FT22255MS5QQ','FT2232573YSH','FT223569BWG4','FT23034LCK3W','FT22319LXKZ1','FT23037GT1SD','FT222481X40Z'
+)
+and t1.field_103 <> '0037100004819009'
+and t1.t24_trans_no is not null
+union all
+select t2.trans_no, t1.debit_account_no as tai_khoan_doi_ung, da.t_short_title as ten_doi_ung
+, 'Ngân hàng TMCP Phương Đông (OCB)' as ngan_hang_doi_ung
+from ESBDATA.omni_transaction_hist t1 inner join ESBDATA.transactions t2 on t1.trans_id=t2.trans_id
+inner join ESBDATA.t24_account da on t1.debit_account_no = da.id
+inner join ESBDATA.t24_account ca on t1.credit_account = ca.id
+where t1.payment_type='InternalPayment' and t2.trans_no in (
+'FT22054XTFVZ','FT22020JQJVN','FT22041T0V9Y','FT22075PBD86','FT22091N22P3','FT22021R05ZW','FT220756ZRLV','FT22071ZS6S2','FT22213B17GK','FT23009YNH5R','FT2303441TWN','FT223299F3BW','FT22294MX5RD','FT223278T424','FT22347WHNPZ','FT223617KN2T','FT23010T7WN2','FT222480GL1K','FT230111TVRQ','FT22319MYTF0','FT23013J8MNT','FT22344L9CKQ','FT2232037NFT','FT23005043SK','FT230349MJJ3','FT23019YFRJ5','FT222073TQYX','FT230307HBWP','FT23037841J8','FT22365GJPS9','FT223569Y7D0','FT22363C9Q1C','FT23018RS3Q2','FT23005581SD','FT22255MS5QQ','FT2232573YSH','FT223569BWG4','FT23034LCK3W','FT22319LXKZ1','FT23037GT1SD','FT222481X40Z'
+)
+and t1.debit_account_no <> '0037100004819009'
+union all
+select t2.trans_no, t1.credit_account as tai_khoan_doi_ung
+, ca.t_short_title as ten_doi_ung, 'Ngân hàng TMCP Phương Đông (OCB)' ngan_hang_doi_ung
+from ESBDATA.omni_transaction_hist t1 inner join ESBDATA.transactions t2 on t1.trans_id=t2.trans_id
+inner join ESBDATA.t24_account da on t1.debit_account_no = da.id
+inner join ESBDATA.t24_account ca on t1.credit_account = ca.id
+where t1.payment_type='InternalPayment' and t2.trans_no in (
+'FT22054XTFVZ','FT22020JQJVN','FT22041T0V9Y','FT22075PBD86','FT22091N22P3','FT22021R05ZW','FT220756ZRLV','FT22071ZS6S2','FT22213B17GK','FT23009YNH5R','FT2303441TWN','FT223299F3BW','FT22294MX5RD','FT223278T424','FT22347WHNPZ','FT223617KN2T','FT23010T7WN2','FT222480GL1K','FT230111TVRQ','FT22319MYTF0','FT23013J8MNT','FT22344L9CKQ','FT2232037NFT','FT23005043SK','FT230349MJJ3','FT23019YFRJ5','FT222073TQYX','FT230307HBWP','FT23037841J8','FT22365GJPS9','FT223569Y7D0','FT22363C9Q1C','FT23018RS3Q2','FT23005581SD','FT22255MS5QQ','FT2232573YSH','FT223569BWG4','FT23034LCK3W','FT22319LXKZ1','FT23037GT1SD','FT222481X40Z'
+)
+and t1.credit_account <> '0037100004819009'
